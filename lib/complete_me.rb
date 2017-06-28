@@ -33,19 +33,28 @@ class CompleteMe
     end
   end
 
+  def add_letters(starting_letter)
+    word = []
+    if starting_letter.children == []
+      word << starting_letter.val
+    else
+      starting_letter.children.map do |next_letter|
+        word << starting_letter.val + next_letter.val
+      require 'pry';binding.pry
+        add_letters(next_letter)
+      end
+    end
+    word
+  end
+
   def count
     word = []
     all_words = []
-    require 'pry';binding.pry
     @dictionary.children.each do |starting_letter|
-      current = starting_letter
-      while current.next != []
-        word << current.val
-        current = current.next
-      end
-      all_words << word.join
+      word << add_letters(starting_letter)
     end
-    all_words.length
+    # require 'pry';binding.pry
+      
   end
 
   def suggest(suggestion)

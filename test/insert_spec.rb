@@ -13,6 +13,20 @@ RSpec.describe CompleteMe do
 
       expect{cm.insert('pizza')}.to change{cm.count}.from(0).to(1)
     end
+
+    xit 'inserts words that use the same starting letters as children of the letter' do
+      cm = CompleteMe.new
+      cm.insert('dog')
+      cm.insert('dot')
+      children = cm.dic.next.next.map do |letter|
+        letter.val
+      end
+
+      expect(cm.dic.length).to eq(1)
+      expect(cm.dic.next.length).to eq(1)
+      expect(cm.dic.next.next.length).to eq(2) 
+      expect(children).to eq(['g', 't'])
+    end
   end
 
 

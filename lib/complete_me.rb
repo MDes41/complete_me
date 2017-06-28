@@ -1,17 +1,34 @@
 class CompleteMe
 
   def initialize
-    @dic = []
+    @dic = [] 
+    @home = Node.new(nil, nil)
   end
 
   def insert(word)
-    @dic = word.cars do |letter|
-      next_node = Node.new(letter)
+    current = @home
+    word.chars do |letter|
+      while current.next != nil
+        current = current.next
+      end
+      current.val = letter
+      current.next = Node.new(nil, nil)
     end
+    @dic << @home
   end
 
   def count
-    @dic.length
+    word = []
+    all_words = []
+    @dic.each do |starting_letter|
+      current = starting_letter
+      while current.next != nil
+        word << current.val
+        current = current.next
+      end
+      all_words << word.join
+    end
+    all_words.length
   end
 
   def suggest(word)
@@ -30,9 +47,10 @@ class CompleteMe
 end
 
 class Node
-  def initialize(data, parent_node = nil, sub_nodes = [])
-    @data = data
-    @parent_node = parent_node
-    @sub_nodes = sub_nodes
+  attr_accessor :val, :next
+
+  def initialize(val, next_node)
+    @val = val
+    @next = next_node
   end
 end

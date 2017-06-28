@@ -1,8 +1,8 @@
 class Node
-  attr_accessor :val, :next
+  attr_accessor :val, :children
 
-  def initialize(val, next_node)
+  def initialize(val, children = [])
     @val = val
-    @next = next_node
+    @children = children
   end
 end

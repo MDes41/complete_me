@@ -13,5 +13,12 @@ RSpec.describe CompleteMe do
 
       expect(cm.count).to eq(0)
     end
+
+    it 'increases by 1 when you insert a word' do
+      cm = CompleteMe.new
+      cm.insert('pizza')
+
+      expect(cm.count).to eq(1)
+    end
   end
 end

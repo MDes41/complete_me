@@ -1,3 +1,5 @@
+require_relative './node'
+
 class CompleteMe
 
   def initialize
@@ -17,6 +19,12 @@ class CompleteMe
     @dic << @home
   end
 
+  def populate(word_list)
+    word_list.each do |word|
+      insert(word)
+    end
+  end
+
   def count
     word = []
     all_words = []
@@ -31,26 +39,22 @@ class CompleteMe
     all_words.length
   end
 
-  def suggest(word)
-    node_dic = @dic.dub
-    word.chars.each do |letter|
-      node = node_dic.select do |node| 
-        node == letter
-      end
-      if node == false
-        #make a new node
-      else
-        node_dic = node
+  def suggest(suggestion)
+    word = []
+    all_words = []
+    suggestion.chars.each do |letter|
+      @dic.each do |starting_letter|
+        if letter == starting_letter.val 
+          current = starting_letter
+          while current.next != nil
+            word << current.val
+            current = current.next
+          end
+          all_words << word.join
+        end
       end
     end
+    all_words
   end
 end
 
-class Node
-  attr_accessor :val, :next
-
-  def initialize(val, next_node)
-    @val = val
-    @next = next_node
-  end
-end

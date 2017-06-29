@@ -10,7 +10,7 @@ RSpec.describe CompleteMe do
 
     it 'populates two words into the dictionary' do
       cm = CompleteMe.new
-      words = ['pizza', 'cheese']
+      words = ['pi', 'ch']
       cm.populate(words)
 
       expect(cm.count).to eq(2)

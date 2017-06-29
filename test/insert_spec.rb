@@ -10,21 +10,22 @@ RSpec.describe CompleteMe do
 
     it 'inserts a word into the dictionary' do
       cm = CompleteMe.new
+      cm.insert('pizza')
 
-      expect{cm.insert('pizza')}.to change{cm.count}.from(0).to(1)
+      expect(cm.count).to eq(1)
     end
 
-    xit 'inserts words that use the same starting letters as children of the letter' do
+    it 'inserts words that use the same starting letters as children of the letter' do
       cm = CompleteMe.new
       cm.insert('dog')
       cm.insert('dot')
-      children = cm.dic.next.next.map do |letter|
+      children = cm.dictionary.children.first.children.first.children.map do |letter|
         letter.val
       end
 
-      expect(cm.dic.length).to eq(1)
-      expect(cm.dic.next.length).to eq(1)
-      expect(cm.dic.next.next.length).to eq(2) 
+      expect(cm.dictionary.children.length).to eq(1)
+      expect(cm.dictionary.children.first.children.length).to eq(1)
+      expect(cm.dictionary.children.first.children.first.children.length).to eq(2) 
       expect(children).to eq(['g', 't'])
     end
   end

@@ -1,15 +1,15 @@
 require_relative './node'
 
 class CompleteMe
-    attr_reader :dic
+    attr_reader :dictionary
 
   def initialize
     @dictionary = Node.new(nil)
+    @word = []
   end
 
   def letter_search(letter, nodes)
     node = nodes.find { |node| node.val == letter}
-    # node == nil ? Node.new(letter, []) : node
   end
 
 
@@ -33,28 +33,28 @@ class CompleteMe
     end
   end
 
-  def add_letters(starting_letter)
-    word = []
-    if starting_letter.children == []
-      word << starting_letter.val
+  def add_letters(starting_point)
+    if starting_point.children == []
+      @word << starting_point
+      starting_point.leaf = true
     else
-      starting_letter.children.map do |next_letter|
-        word << starting_letter.val + next_letter.val
-      require 'pry';binding.pry
+      starting_point.children.each do |next_letter|
+        @word << starting_point
         add_letters(next_letter)
       end
     end
-    word
+    @word
   end
 
   def count
-    word = []
+    words = ''
     all_words = []
-    @dictionary.children.each do |starting_letter|
-      word << add_letters(starting_letter)
+    add_letters(@dictionary).each do |letter|
+      words << letter.val if letter.val != nil
+      all_words << words if letter.leaf == true  
     end
-    # require 'pry';binding.pry
-      
+    return 0 if all_words.first == ''
+    all_words.count
   end
 
   def suggest(suggestion)

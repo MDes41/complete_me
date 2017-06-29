@@ -12,10 +12,9 @@ RSpec.describe CompleteMe do
       cm = CompleteMe.new
       cm.insert('dot')
       cm.insert('cat')
-      result = cm.letter_search('z', cm.dic)
+      result = cm.letter_search('z', cm.dictionary.children)
 
-      expect(result).to be_kind_of(Node)
-      expect(result.val).to eq('z')
+      expect(result).to eq(nil)
     end
 
     it 'returns the node when searching for that nodes val' do

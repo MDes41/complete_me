@@ -8,7 +8,7 @@ RSpec.describe CompleteMe do
       expect(cm).to respond_to(:suggest)
     end
 
-    xit 'suggest a word when that word is the only word in the dictionary' do
+    it 'suggest a word when that word is the only word in the dictionary' do
       cm = CompleteMe.new
       cm.insert('pizza')
 

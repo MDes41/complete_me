@@ -47,32 +47,32 @@ class CompleteMe
   end
 
   def count
+    find_word_combos(@dictionary).count
+  end
+
+  def find_word_combos(starting_point)
     words = ''
     all_words = []
-    add_letters(@dictionary).each do |letter|
+    add_letters(starting_point).each do |letter|
       words << letter.val if letter.val != nil
       all_words << words if letter.leaf == true  
     end
     return 0 if all_words.first == ''
-    all_words.count
+    all_words
   end
 
   def suggest(suggestion)
     word = []
     all_words = []
+    current = @dictionary
     suggestion.chars.each do |letter|
-      @dictionary.each do |starting_letter|
+      current.children.each do |starting_letter|
         if letter == starting_letter.val 
           current = starting_letter
-          while current.next != nil
-            word << current.val
-            current = current.next
-          end
-          all_words << word.join
         end
       end
     end
-    all_words
+    find_word_combos(current)
   end
 
 end

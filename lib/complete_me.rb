@@ -62,17 +62,19 @@ class CompleteMe
   end
 
   def suggest(suggestion)
-    word = []
-    all_words = []
+    starting_word = ''
     current = @dictionary
     suggestion.chars.each do |letter|
       current.children.each do |starting_letter|
         if letter == starting_letter.val 
+          starting_word += starting_letter.val
           current = starting_letter
         end
       end
     end
-    find_word_combos(current)
+    find_word_combos(current).map.with_index do |ending| 
+      starting_word + ending
+    end
   end
 
 end

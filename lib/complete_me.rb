@@ -5,7 +5,7 @@ class CompleteMe
 
   def initialize
     @dictionary = Node.new(nil)
-    @word = []
+    @words = []
   end
 
   def letter_search(letter, nodes)
@@ -28,6 +28,7 @@ class CompleteMe
         level = new_node.children
       end
     end
+    # require 'pry';binding.pry
   end
 
   def populate(word_list)
@@ -38,14 +39,14 @@ class CompleteMe
 
   def add_letters(starting_point)
     if starting_point.children == []
-      @word << starting_point
+      # @words << starting_point.val
     else
       starting_point.children.each do |next_letter|
-        @word << next_letter
+        @words << next_letter
         add_letters(next_letter)
       end
     end
-    @word
+    @words
   end
 
   def count
@@ -54,11 +55,14 @@ class CompleteMe
 
   def find_word_combos(starting_point)
     # require 'pry';binding.pry
-    words = ''
+    word = ''
     all_words = []
     add_letters(starting_point).each do |letter|
-      words << letter.val if letter.val != nil
-      all_words << words if letter.leaf == true  
+      word << letter.val if letter.val != nil
+      if letter.leaf == true
+        all_words << word 
+        word = ''
+      end
     end
     return 0 if all_words.first == ''
     all_words
@@ -76,7 +80,7 @@ class CompleteMe
       end
     end
     # require 'pry';binding.pry
-    find_word_combos(current).map.with_index do |ending| 
+    find_word_combos(current).map do |ending| 
       starting_word + ending
     end
   end

@@ -28,7 +28,6 @@ class CompleteMe
         level = new_node.children
       end
     end
-    # require 'pry';binding.pry
   end
 
   def populate(word_list)
@@ -38,9 +37,7 @@ class CompleteMe
   end
 
   def add_letters(starting_point)
-    if starting_point.children == []
-      # @words << starting_point.val
-    else
+    if starting_point.children != []
       starting_point.children.each do |next_letter|
         @words << next_letter
         add_letters(next_letter)
@@ -54,7 +51,6 @@ class CompleteMe
   end
 
   def find_word_combos(starting_point)
-    # require 'pry';binding.pry
     word = ''
     all_words = []
     add_letters(starting_point).each do |letter|
@@ -79,7 +75,6 @@ class CompleteMe
         end
       end
     end
-    # require 'pry';binding.pry
     find_word_combos(current).map do |ending| 
       starting_word + ending
     end

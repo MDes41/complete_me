@@ -15,7 +15,7 @@ RSpec.describe CompleteMe do
       expect(cm.suggest('piz')).to eq(['pizza'])
     end
 
-    xit 'suggest two word that have overlapping letters' do
+    it 'suggest two word that have overlapping letters' do
       cm = CompleteMe.new
       cm.insert('dot')
       cm.insert('dog')

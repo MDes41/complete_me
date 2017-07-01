@@ -14,13 +14,16 @@ class CompleteMe
 
 
   def insert(word)
+    total = word.chars.length
     level = @dictionary.children
-    word.chars.each do |letter|
+    word.chars.each_with_index do |letter, index|
       node = letter_search(letter, level)
       if node
+        node.leaf = true if index == (total - 1)
         level = node.children
       else
         new_node = Node.new(letter, [])
+        new_node.leaf = true if index == (total - 1)
         level << new_node
         level = new_node.children
       end
@@ -36,10 +39,9 @@ class CompleteMe
   def add_letters(starting_point)
     if starting_point.children == []
       @word << starting_point
-      starting_point.leaf = true
     else
       starting_point.children.each do |next_letter|
-        @word << starting_point
+        @word << next_letter
         add_letters(next_letter)
       end
     end
@@ -51,6 +53,7 @@ class CompleteMe
   end
 
   def find_word_combos(starting_point)
+    # require 'pry';binding.pry
     words = ''
     all_words = []
     add_letters(starting_point).each do |letter|
@@ -72,10 +75,10 @@ class CompleteMe
         end
       end
     end
+    # require 'pry';binding.pry
     find_word_combos(current).map.with_index do |ending| 
       starting_word + ending
     end
   end
-
 end
 
